@@ -1,8 +1,9 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class GatochiCubit extends Cubit<int> {
-  GatochiCubit() : super(0);
+class ImageCubit extends Cubit<String> {
+  ImageCubit() : super('../assets/ferro.png'); // Caminho da imagem inicial
 
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
+  void changeImage(String newPath) {
+    emit(newPath);
+  }
 }
