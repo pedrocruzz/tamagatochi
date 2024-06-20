@@ -1,9 +1,13 @@
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tamagatochi/pages/tamagatochi_status_page.dart';
 import 'package:tamagatochi/theme/theme.dart';
 import 'package:tamagatochi/transition_cubit.dart';
+import 'package:tamagatochi/providers/hunger_provider.dart';
+import 'package:tamagatochi/providers/bath_provider.dart';
+import 'package:tamagatochi/providers/sleep_provider.dart';
 import '../gatochi_cubit.dart';
 import 'transition_page.dart';
 
@@ -47,7 +51,8 @@ class TamagatochiMainPage extends StatelessWidget {
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
             ElevatedButton(
-              child: Image.asset("assets/home.png", height: 30, width: 30,fit: BoxFit.cover),
+              child: Image.asset("assets/home.png",
+                  height: 30, width: 30, fit: BoxFit.cover),
               onPressed: () {
                 context
                     .read<TransitionCubit>()
@@ -71,7 +76,8 @@ class TamagatochiMainPage extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              child: Image.asset("assets/peixe.png", height: 30, width: 30,fit: BoxFit.cover),
+              child: Image.asset("assets/peixe.png",
+                  height: 30, width: 30, fit: BoxFit.cover),
               onPressed: () {
                 context
                     .read<TransitionCubit>()
@@ -86,16 +92,21 @@ class TamagatochiMainPage extends StatelessWidget {
                   context
                       .read<GatochiCubit>()
                       .changeGatochi('assets/gatochi-comer-bocafechada.gif');
+
+                  // Aumentar o status de fome em 25% usando o Provider
+                  context.read<HungerProvider>().increaseHunger(25);
                 });
               },
               style: ElevatedButton.styleFrom(
-                  shape: CircleBorder(),
-                  fixedSize: Size(85, 85),
-                  backgroundColor: TamagatochiTheme.regularBlue,
-                  textStyle: TextStyle()),
+                shape: CircleBorder(),
+                fixedSize: Size(85, 85),
+                backgroundColor: TamagatochiTheme.regularBlue,
+                textStyle: TextStyle(),
+              ),
             ),
             ElevatedButton(
-              child: Image.asset("assets/banho.png", height: 30, width: 30,fit: BoxFit.cover),
+              child: Image.asset("assets/banho.png",
+                  height: 30, width: 30, fit: BoxFit.cover),
               onPressed: () {
                 context
                     .read<TransitionCubit>()
@@ -110,6 +121,8 @@ class TamagatochiMainPage extends StatelessWidget {
                   context
                       .read<GatochiCubit>()
                       .changeGatochi('assets/gatochi-banho.gif');
+
+                  context.read<BathProvider>().increaseBath(25);
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -119,7 +132,8 @@ class TamagatochiMainPage extends StatelessWidget {
               ),
             ),
             ElevatedButton(
-              child: Image.asset("assets/dormir.png", height: 30, width: 30,fit: BoxFit.cover),
+              child: Image.asset("assets/dormir.png",
+                  height: 30, width: 30, fit: BoxFit.cover),
               onPressed: () {
                 context
                     .read<TransitionCubit>()
@@ -134,6 +148,7 @@ class TamagatochiMainPage extends StatelessWidget {
                   context
                       .read<GatochiCubit>()
                       .changeGatochi('assets/gatochi-dormindo.gif');
+                  context.read<SleepProvider>().increaseSleep(25);
                 });
               },
               style: ElevatedButton.styleFrom(
